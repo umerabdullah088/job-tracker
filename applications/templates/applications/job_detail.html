@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Job {{ job.id }} Details
+{% endblock %}
+
+{% block content %}
+
+<div class="job-card">
+    <h2>{{ job.company }} — {{ job.role }}</h2>
+
+    <p><strong>Status:</strong> {{ job.status }}</p>
+    <p><strong>Applied on:</strong> {{ job.applied_date }}</p>
+
+    <hr>
+
+    <h3>Notes</h3>
+    {% if job.notes %}
+        <p>{{ job.notes }}</p>
+    {% else %}
+        <p><em>No notes added.</em></p>
+    {% endif %}
+
+    <hr>
+
+    <h3>Resume</h3>
+    {% if job.resume %}
+        <a href="{{ job.resume.url }}" target="_blank">View / Download Resume</a>
+    {% else %}
+        <p><em>No resume uploaded.</em></p>
+    {% endif %}
+
+    <hr>
+
+    <div class="job-actions">
+        <a href="{% url 'edit_job' job.id %}">Edit</a>
+        <a href="{% url 'delete_job' job.id %}">Delete</a>
+        <a href="{% url 'job_list' %}">Back</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}JobTracker{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    {% if user.is_authenticated %}
+    <nav class="navbar">
+        <a href="{% url 'job_list' %}" class="navbar-brand">
+            📋 JobTracker
+        </a>
+        <div class="navbar-user">
+            <span class="navbar-username">
+                Welcome, <strong>{{ user.username }}</strong>
+            </span>
+            <form method="post" action="{% url 'logout' %}" style="margin: 0; padding: 0; background: transparent; border: none; box-shadow: none;">
+                {% csrf_token %}
+                <button type="submit" class="btn-logout">
+                    🚪 Logout
+                </button>
+            </form>
+        </div>
+    </nav>
+    {% endif %}
+
+    <!-- Main Content -->
+    {% block content %}{% endblock %}
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

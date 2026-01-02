@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}JobTracker - Track Your Job Applications{% endblock %}
+
+{% block content %}
+
+<div class="landing-container">
+    <!-- Navigation -->
+    <nav class="landing-nav">
+        <a href="{% url 'landing' %}" class="logo">JobTracker</a>
+        <div class="nav-buttons">
+            <a href="{% url 'login' %}" class="btn btn-outline">Login</a>
+            <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Track Your Job Search Journey</h1>
+            <p>Stay organized and never miss an opportunity. Keep track of all your job applications in one place.</p>
+            <div class="hero-buttons">
+                <a href="{% url 'signup' %}" class="btn btn-large btn-hero">Get Started Free</a>
+                <a href="{% url 'login' %}" class="btn btn-large btn-secondary">Sign In</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature-card">
+            <h3>📊 Dashboard</h3>
+            <p>Get a quick overview of all your applications at a glance</p>
+        </div>
+        <div class="feature-card">
+            <h3>📝 Track Applications</h3>
+            <p>Monitor the status of each application from applied to offer</p>
+        </div>
+        <div class="feature-card">
+            <h3>🎯 Stay Organized</h3>
+            <p>Never lose track of important deadlines and follow-ups</p>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

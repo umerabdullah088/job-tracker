@@ -1,0 +1,96 @@
+<!-- dashboard.html -->
+{% extends "base.html" %}
+
+{% block title %}Dashboard - JobTracker{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Welcome back, {{ user.username }}!</h1>
+        <p>Here's an overview of your job applications</p>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="dashboard-card">
+            <h3>Total Applications</h3>
+            <p>{{ total_jobs }}</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>Applied</h3>
+            <p>{{ status_counts.applied }}</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>Interview</h3>
+            <p>{{ status_counts.interview }}</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>Offer</h3>
+            <p>{{ status_counts.offer }}</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>Rejected</h3>
+            <p>{{ status_counts.rejected }}</p>
+        </div>
+    </div>
+
+    
+</div>
+
+
+
+
+<div class="dashboard-card chart-card">
+    <h3>Applications by Status</h3>
+
+    <div class="chart-container">
+        <canvas id="statusChart"></canvas>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 2rem;">
+        <a href="{% url 'job_list' %}" class="btn btn-large btn-primary">View All Applications</a>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const canvas = document.getElementById("statusChart");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+
+    new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: ["Applied", "Interview", "Offer", "Rejected"],
+            datasets: [{
+                data: [
+                    {{ status_counts.applied }},
+                    {{ status_counts.interview }},
+                    {{ status_counts.offer }},
+                    {{ status_counts.rejected }}
+                ],
+                backgroundColor: [
+                    "#3b82f6",
+                    "#f59e0b",
+                    "#10b981",
+                    "#ef4444"
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: false
+        }
+    });
+});
+</script>
+{% endblock %}
