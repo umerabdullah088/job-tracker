@@ -5,6 +5,9 @@ from .forms import JobApplicationForm
 from .models import JobApplication
 from django.db.models import Q
 from django.core.paginator import Paginator
+from  accounts.models import Profile
+
+
 
 
 
@@ -132,6 +135,7 @@ def job_detail(request, pk):
 
 @login_required
 def dashboard(request):
+    profile , created = Profile.objects.get_or_create(user = request.user)
     user_jobs = JobApplication.objects.filter(owner=request.user)
 
     total_jobs = user_jobs.count()
@@ -149,5 +153,6 @@ def dashboard(request):
         {
             "total_jobs": total_jobs,
             "status_counts": status_counts,
+            "profile": profile,
         }
     )

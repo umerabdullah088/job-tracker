@@ -10,7 +10,8 @@ class SignupForm(forms.ModelForm):
         label="Confirm Password",
         widget=forms.PasswordInput
     )
-
+    
+    profile_pic = forms.ImageField(required=False)
     class Meta:
         model = User
         fields = ["username", "email"]

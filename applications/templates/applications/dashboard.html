@@ -1,11 +1,38 @@
-<!-- dashboard.html -->
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Dashboard - JobTracker{% endblock %}
 
 {% block content %}
 
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+<!-- ===== Profile Section ===== -->
+<div class="profile-section">
+
+    {% if profile.profile_pic %}
+        <img
+            src="{{ profile.profile_pic.url }}"
+            class="profile-avatar"
+            alt="Profile Picture"
+        >
+    {% else %}
+        <img
+            src="{% static 'images/default-avatar.png' %}"
+            class="profile-avatar"
+            alt="Default Avatar"
+        >
+    {% endif %}
+
+    <div class="profile-username">
+        {{ request.user.username }}
+    </div>
+
+</div>
+
+<!-- ===== Dashboard Content ===== -->
 <div class="dashboard-container">
+
     <div class="dashboard-header">
         <h1>Welcome back, {{ user.username }}!</h1>
         <p>Here's an overview of your job applications</p>
@@ -38,23 +65,20 @@
         </div>
     </div>
 
-    
-</div>
-
-
-
-
-<div class="dashboard-card chart-card">
-    <h3>Applications by Status</h3>
-
-    <div class="chart-container">
-        <canvas id="statusChart"></canvas>
+    <div class="dashboard-card chart-card">
+        <h3>Applications by Status</h3>
+        <div class="chart-container">
+            <canvas id="statusChart"></canvas>
+        </div>
     </div>
-</div>
 
-<div style="text-align: center; margin-top: 2rem;">
-        <a href="{% url 'job_list' %}" class="btn btn-large btn-primary">View All Applications</a>
+    <div style="text-align: center; margin-top: 2rem;">
+        <a href="{% url 'job_list' %}" class="btn btn-large btn-primary">
+            View All Applications
+        </a>
     </div>
+
+</div>
 
 {% endblock %}
 
